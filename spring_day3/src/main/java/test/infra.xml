@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="commentService" class="service.CommentServiceImpl">
+		<constructor-arg index="0" ref="commentDao"></constructor-arg>
+	</bean>
+	<bean id="commentService2" class="service.CommentServiceImpl">
+		<constructor-arg index="0" ref="commentDao"></constructor-arg>
+	</bean>
+	
+	<bean id="commentDao" class="dao.CommentDaoOracleImpl" init-method="afterGeneration" destroy-method="beforeDestory">
+		<property name="ds" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="dsTemp" abstract="true" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="org.dd"></property>
+		<property name="username" value="web"></property>
+		<property name="password" value="tiger"></property>
+	</bean>
+	
+	<bean id="dataSource" parent="dsTemp" >
+		<property name="url" value="Localhot://1"></property>
+	</bean>
+	<bean id="dataSourceOper" parent="dsTemp" >
+		<property name="url" value="Localhot://2"></property>
+		<property name="password" value="lion"></property>
+	</bean>
+	
+</beans>
